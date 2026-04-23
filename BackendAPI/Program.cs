@@ -1,3 +1,9 @@
+DotNetEnv.Env.Load(); 
+
+var dbConn = Environment.GetEnvironmentVariable("DB_CONNECTION");
+var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY");
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
