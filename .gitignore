@@ -52,3 +52,25 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# === React / Frontend (Vite/Node) ===
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === VS Code specific ===
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# === OS specific ===
+.DS_Store
+Thumbs.db
