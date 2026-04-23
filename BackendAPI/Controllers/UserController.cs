@@ -16,12 +16,20 @@ namespace BackendAPI.Controllers
             // Lấy thông tin từ Token mà người dùng gửi kèm
             var userName = User.Identity?.Name;
             var userId = User.FindFirst("UserId")?.Value;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            var userfullname = User.FindFirst("FullName")?.Value;
+            var useremail = User.FindFirst("Email")?.Value;
+            var userphone = User.FindFirst("PhoneNumber")?.Value;
 
             return Ok(new
             {
                 Message = "Chào mừng bạn đến với hồ sơ cá nhân!",
                 Username = userName,
-                UserId = userId
+                UserId = userId,
+                Role = userRole,
+                FullName = userfullname,
+                Email = useremail,
+                PhoneNumber = userphone
             });
         }
 

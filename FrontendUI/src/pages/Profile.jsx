@@ -55,6 +55,11 @@ const Profile = () => {
                         <strong>Tên tài khoản:</strong> <span style={{ color: 'var(--accent, #004ea2)', fontWeight: 'bold' }}>{profileData.username}</span>
                     </p>
                     <p style={{ margin: '5px 0' }}><strong>ID Hệ thống:</strong> {profileData.userId}</p>
+                    <p style={{ margin: '5px 0' }}><strong>Vai trò:</strong> {profileData.role}</p>
+                    <p style={{ margin: '5px 0' }}><strong>Họ tên:</strong> {profileData.fullName || 'Chưa cập nhật'}</p>
+                    <p style={{ margin: '5px 0' }}><strong>Email:</strong> {profileData.email || 'Chưa cập nhật'}</p>
+                    <p style={{ margin: '5px 0' }}><strong>Số điện thoại:</strong> {profileData.phoneNumber || 'Chưa cập nhật'}</p>
+                
                 </div>
             )}
             

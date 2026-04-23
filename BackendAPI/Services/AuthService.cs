@@ -60,7 +60,10 @@ namespace BackendAPI.Services
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role),
-                new Claim("UserId", user.Id.ToString())
+                new Claim("UserId", user.Id.ToString()),
+                new Claim("FullName", user.FullName ?? ""),
+                new Claim("Email", user.Email ?? ""),
+                new Claim("PhoneNumber", user.PhoneNumber ?? "")
             };
 
             // Lấy key từ file .env (đã được load qua Program.cs)
