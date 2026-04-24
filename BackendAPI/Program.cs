@@ -54,8 +54,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// Đăng ký AuthService (Đã di chuyển lên đúng vị trí)
+// Đăng ký Service
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UserService>();
 
 // --- PHẦN 2: XÂY DỰNG APP ---
 var app = builder.Build();

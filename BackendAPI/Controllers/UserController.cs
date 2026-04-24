@@ -1,6 +1,6 @@
+using BackendAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace BackendAPI.Controllers
 {
@@ -8,32 +8,45 @@ namespace BackendAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        // Attribute [Authorize] này chính là "chốt chặn" bảo vệ API
-        [Authorize]
-        [HttpGet("profile")]
-        public IActionResult GetProfile()
-        {
-            // Lấy thông tin từ Token mà người dùng gửi kèm
-            var userName = User.Identity?.Name;
-            var userId = User.FindFirst("UserId")?.Value;
-            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
-            var userfullname = User.FindFirst("FullName")?.Value;
-            var useremail = User.FindFirst("Email")?.Value;
-            var userphone = User.FindFirst("PhoneNumber")?.Value;
+        private readonly UserService _userService;
 
-            return Ok(new
-            {
-                Message = "Chào mừng bạn đến với hồ sơ cá nhân!",
-                Username = userName,
-                UserId = userId,
-                Role = userRole,
-                FullName = userfullname,
-                Email = useremail,
-                PhoneNumber = userphone
-            });
+        // Tiêm (Inject) UserService vào Controller
+        public UserController(UserService userService)
+        {
+            _userService = userService;
         }
 
-        
+        [Authorize]
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            // 1. Chỉ lấy đúng cái UserId từ Token (Giống như quét mã vạch thẻ)
+            var userIdString = User.FindFirst("UserId")?.Value;
 
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
+            {
+                return Unauthorized(new { message = "Token không hợp lệ hoặc đã hết hạn!" });
+            }
+
+            // 2. Nhờ UserService xuống Database lấy toàn bộ thông tin mới nhất
+            var userProfile = await _userService.GetUserProfileByIdAsync(userId);
+
+            if (userProfile == null)
+            {
+                return NotFound(new { message = "Không tìm thấy tài khoản này trong hệ thống!" });
+            }
+
+            // 3. Trả hộp dữ liệu (DTO) về cho React
+            return Ok(userProfile);
+        }
+
+        [Authorize(Roles = "Admin")] 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userService.GetAllUsersAsync();
+            
+            return Ok(users);
+        }
     }
 }

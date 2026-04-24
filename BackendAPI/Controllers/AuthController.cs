@@ -31,9 +31,9 @@ namespace BackendAPI.Controllers
 
         // 2. API Đăng nhập: POST api/auth/login
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var token = _authService.Login(request);
+            var token = await _authService.Login(request);
 
             if (token == null)
             {
@@ -41,7 +41,28 @@ namespace BackendAPI.Controllers
             }
 
             // Trả về Token cho Frontend React lưu trữ
-            return Ok(new AuthResponse(token));
+            return Ok(token);
+        }
+        // API MỚI: Dành cho việc cấp lại thẻ
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] TokenApiDto tokenModel)
+        {
+            // Nếu Frontend gửi lên một chuỗi rỗng
+            if (string.IsNullOrEmpty(tokenModel.RefreshToken))
+            {
+                return BadRequest(new { message = "Vui lòng cung cấp Refresh Token!" });
+            }
+
+            // Nhờ Service kiểm tra và cấp thẻ mới
+            var tokens = await _authService.RefreshTokenAsync(tokenModel.RefreshToken);
+
+            if (tokens == null)
+            {
+                return Unauthorized(new { message = "Thẻ Refresh đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại!" });
+            }
+
+            // Trả thẻ mới về cho React
+            return Ok(tokens);
         }
     }
 }

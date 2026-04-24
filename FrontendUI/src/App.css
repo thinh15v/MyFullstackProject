@@ -1,28 +1,50 @@
-/* --- SỬA LỖI DÍNH LIỀN --- */
-.main-nav {
-  display: flex;             /* Ép các phần tử nằm ngang */
-  justify-content: center;   /* Căn giữa toàn bộ thanh menu */
-  align-items: center;       /* Căn giữa theo chiều dọc */
-  gap: 20px;                 /* ĐÂY LÀ CHÌA KHÓA: Tạo khoảng cách 20px giữa các nút */
-  padding: 15px 30px;
-  background-color: var(--bg, #ffffff);
-  border-bottom: 1px solid var(--border, #e5e7eb);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+/* src/pages/Login.css */
+.login-card {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: var(--shadow);
+  text-align: left;
 }
 
-/* --- SỬA LỖI GẠCH DƯỚI --- */
-.nav-link {
-  text-decoration: none;     /* ĐÂY LÀ CHÌA KHÓA: Xóa đường gạch chân */
-  color: #4b5563;            /* Màu chữ xám đen */
+.login-card h2 {
+  text-align: center;
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.login-error {
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: var(--code-bg);
+  box-sizing: border-box;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
   font-weight: bold;
   font-size: 16px;
-  padding: 10px 20px;        /* Mở rộng khoảng bấm của nút */
-  border-radius: 8px;        /* Bo góc mềm mại */
-  transition: all 0.2s ease-in-out; /* Hiệu ứng chuyển màu mượt mà */
-}
-  
-/* Hiệu ứng khi đưa chuột (hover) vào link */
-.nav-link:hover {
-  background-color: #f3f4f6; /* Nền xám nhạt khi di chuột */
-  color: var(--accent, #004ea2); /* Đổi sang màu nhấn (xanh/vàng) */
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
 }

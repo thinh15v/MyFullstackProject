@@ -8,21 +8,27 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // Kiểm tra xem có token cũ trong máy không khi vừa mở trang web
-        const token = localStorage.getItem('token');
-        if (token) {
+        const accessToken = localStorage.getItem('accessToken');
+        const refreshToken = localStorage.getItem('refreshToken');
+        const role = localStorage.getItem('role'); 
+        if (accessToken) {
             // Tạm thời set user là true, sau này có thể giải mã token để lấy tên
-            setUser({ loggedIn: true }); 
+            setUser({ loggedIn: true, role: role }); 
         }
         setLoading(false);
     }, []);
 
-    const login = (token) => {
-        localStorage.setItem('token', token);
-        setUser({ loggedIn: true });
+    const login = (accessToken, refreshToken, role) => {
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('role', role);
+        setUser({ loggedIn: true, role: role });
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('role');
         setUser(null);
     };
 

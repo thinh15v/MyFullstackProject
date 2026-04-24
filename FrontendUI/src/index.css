@@ -1,15 +1,14 @@
+/* =========================================
+   1. CÀI ĐẶT GỐC & BẢNG MÀU CHUNG
+   ========================================= */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --text: #4b5563;        /* Xám đậm cho chữ thường */
+  --text-h: #111827;      /* Đen xám cho Tiêu đề */
+  --bg: #ffffff;          /* Nền trắng tinh */
+  --border: #e5e7eb;      /* Viền xám nhạt */
+  --code-bg: #f9fafb;     /* Nền xám siêu nhạt cho form */
+  --accent: #004ea2;      /* Xanh dương HUTECH làm điểm nhấn */
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -17,24 +16,26 @@
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  
+  /* ÉP KHÓA GIAO DIỆN SÁNG */
+  color-scheme: light; 
+  
   color: var(--text);
-  background: var(--bg);
+  background: var(--code-bg); /* Phủ xám nhạt toàn trang */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-
-
-body {
-  margin: 0;
+@media (max-width: 1024px) {
+  :root { font-size: 16px; }
 }
+
+/* =========================================
+   2. BỐ CỤC CHUNG CỦA TRANG WEB
+   ========================================= */
+body { margin: 0; }
 
 #root {
   width: 1126px;
@@ -46,48 +47,155 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background-color: var(--bg);
 }
 
-h1,
-h2 {
+h1, h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+h1 { font-size: 56px; letter-spacing: -1.68px; margin: 32px 0; }
+h2 { font-size: 24px; line-height: 118%; letter-spacing: -0.24px; margin: 0 0 8px; }
+
+@media (max-width: 1024px) {
+  h1 { font-size: 36px; margin: 20px 0; }
+  h2 { font-size: 20px; }
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
+p { margin: 0; }
+
+/* =========================================
+   3. THANH ĐIỀU HƯỚNG (NAVBAR)
+   ========================================= */
+.main-nav {
+  display: flex;             
+  justify-content: center;   
+  align-items: center;       
+  gap: 20px;                 
+  padding: 15px 30px;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link {
+  text-decoration: none;     
+  color: var(--text);            
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;        
+  border-radius: 8px;        
+  transition: all 0.2s ease-in-out; 
+}
+  
+.nav-link:hover {
+  background-color: var(--code-bg); 
+  color: var(--accent); 
+}
+
+/* =========================================
+   4. GIAO DIỆN FORM (DÙNG CHUNG CHO LOGIN / REGISTER / PROFILE)
+   ========================================= */
+.auth-card {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.auth-card h2 {
+  text-align: center;
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14.5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--text);
+  font-size: 14.5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: var(--code-bg);
   color: var(--text-h);
+  outline: none;
+  box-sizing: border-box;
+  font-size: 15px;
+  transition: border-color 0.2s;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.form-input:focus {
+  border-color: var(--accent);
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  color: #fff;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+}
+
+.btn-danger {
+  background: #ef4444;
+}
+
+.auth-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+.auth-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
 }

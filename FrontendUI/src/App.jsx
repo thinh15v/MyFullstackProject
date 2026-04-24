@@ -6,6 +6,7 @@ import { AuthContext } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register'; 
 import Profile from './pages/Profile';
+import AllUsers from './pages/AllUsers';
 import ProtectedRoute from './routes/ProtectedRoute';
 import './App.css';
 
@@ -25,6 +26,11 @@ const Navbar = () => {
       {user ? (
         <>
           <Link to="/profile" className="nav-link">Hồ sơ </Link>
+
+          {user.role === 'Admin' && (
+            <Link to="/admin/users" className="nav-link">Quản trị</Link>
+          )}
+
           <button onClick={handleLogout} className="nav-link" style={{ background: 'transparent', cursor: 'pointer', border: 'none' }}>
             Đăng xuất
           </button>
@@ -54,6 +60,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/users" 
+              element={
+                <ProtectedRoute>
+                  <AllUsers />
                 </ProtectedRoute>
               } 
             />
